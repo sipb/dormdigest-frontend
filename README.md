@@ -1,4 +1,4 @@
-## Frontend for dormsp.am
+## Frontend for DormDigest
 
 React application that gets data from dormspam/web-backend. To open, first make sure you're running Node 18. Then do:
 
