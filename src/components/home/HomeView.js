@@ -25,6 +25,7 @@ class HomeView extends Component {
       user: { settings: { filters: LocalData.getCategoryFilters() }}, //Categories that the user has selected
       categories: Categories.getCategoriesList(), //Should be a list of category names
       mobileMenu: false,
+      filter_by_sent_date: false // Whether to use sent date ( if false use parsed date)
     };
 
     // axios.get(process.env.REACT_APP_BACKEND_URL + "/users/current", {
@@ -39,6 +40,7 @@ class HomeView extends Component {
     this.handleSelectDay = this.handleSelectDay.bind(this);
     this.handleClickAway = this.handleClickAway.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleSwitchToggle = this.handleSwitchToggle.bind(this)
     this.handleUserUpdate = this.handleUserUpdate.bind(this);
     this.handleCategoryUpdate = this.handleCategoryUpdate.bind(this);
     this.toggleMobileMenu = this.toggleMobileMenu.bind(this);
@@ -60,6 +62,12 @@ class HomeView extends Component {
     this.setState({
       day: m,
       event: null
+    });
+  }
+
+  handleSwitchToggle(){
+    this.setState((prevState)=>{
+      return({...prevState, filter_by_sent_date: !prevState.filter_by_sent_date});
     });
   }
 
@@ -96,7 +104,7 @@ class HomeView extends Component {
     return (
       <div className="HomeView">
         <a href="https://forms.gle/74z5cuE6fvCe3TLZ9" target="_blank">
-          <div className="betaform"> beta - report bugs / suggest changes <p style={{textDecoration: "underline", display: "inline-block"}}>here</p></div>
+          <div className="betaform">suggest changes <p style={{textDecoration: "underline", display: "inline-block"}}>here</p></div>
         </a>
         <div className={"column left" + (this.state.event !== null ? " inactive" : "")}>
           <div className="betaspace"></div>
@@ -109,6 +117,8 @@ class HomeView extends Component {
             categories={this.state.categories}
           />
           <HomeFeedView
+            handleClick={this.handleSwitchToggle}
+            filter_by_sent_date={this.state.filter_by_sent_date}
             search={this.state.search}
             selectedDay={this.state.day}
             selectedEvent={this.state.event}
@@ -129,6 +139,7 @@ class HomeView extends Component {
             selectedDay={this.state.day}
             onSelectDay={this.handleSelectDay}
             categories={this.state.categories}
+            filter_by_sent_date = {this.state.filter_by_sent_date}
           />
           <HomeSidebarCategoriesView
             onUserUpdate={this.handleUserUpdate}

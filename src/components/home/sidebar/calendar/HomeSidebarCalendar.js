@@ -35,7 +35,7 @@ class HomeSidebarCalendar extends Component {
   componentDidMount() {
     const month = moment(this.state.m).month() + 1; //Moment is zero-indexed, need value from 1 to 12
     const year = moment(this.state.m).year();
-    Events.getEventFrequencyByDateForMonth(month,year).then(response => {
+    Events.getEventFrequencyByDateForMonth(month,year, this.props.filter_by_sent_date).then(response => {
       this.setState({
         frequencies: response
       });
@@ -51,7 +51,7 @@ class HomeSidebarCalendar extends Component {
     // let freqDate = typeof nextProps !== "undefined" ? nextProps.selectedDay : this.state.m
     const month = moment(this.state.m).month() + 1; //Moment is zero-indexed, need value from 1 to 12
     const year = moment(this.state.m).year();
-    Events.getEventFrequencyByDateForMonth(month,year).then(response => {
+    Events.getEventFrequencyByDateForMonth(month,year, nextProps.filter_by_sent_date).then(response => {
       this.setState({
         frequencies: response
       });
@@ -64,7 +64,7 @@ class HomeSidebarCalendar extends Component {
     });
     const month = moment(this.state.m).month() + 1; //Moment is zero-indexed, need value from 1 to 12
     const year = moment(this.state.m).year();
-    Events.getEventFrequencyByDateForMonth(month,year).then(response => {
+    Events.getEventFrequencyByDateForMonth(month,year, this.props.filter_by_sent_date).then(response => {
       this.setState({
         frequencies: response
       });
@@ -77,7 +77,7 @@ class HomeSidebarCalendar extends Component {
     });
     const month = moment(this.state.m).month() + 1; //Moment is zero-indexed, need value from 1 to 12
     const year = moment(this.state.m).year();
-    Events.getEventFrequencyByDateForMonth(month,year).then(response => {
+    Events.getEventFrequencyByDateForMonth(month,year, this.props.filter_by_sent_date).then(response => {
       this.setState({
         frequencies: response
       });

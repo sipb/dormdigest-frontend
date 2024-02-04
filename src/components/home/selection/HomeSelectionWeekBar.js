@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import moment from "moment";
 import "./HomeSelectionWeekBar.css";
-
 import HomeSelectionWeekBarDayItem from "./HomeSelectionWeekBarDayItem";
 
 class HomeSelectionWeekBar extends Component {
@@ -72,7 +71,7 @@ class HomeSelectionWeekBar extends Component {
   render() {
     let dayTagsData = [];
 
-    for (let i=0; i < 7; i++) {
+    for (let i = 0; i < 7; i++) {
       dayTagsData.push({
         index: i,
         day: moment(this.state.currentWeekStart).add(i, 'days').format('ddd').toUpperCase(),
@@ -84,10 +83,10 @@ class HomeSelectionWeekBar extends Component {
 
     const dayTags = dayTagsData.map(
       day => <HomeSelectionWeekBarDayItem
-                onClick={this.selectDay}
-                key={day.date}
-                data={day}
-                categories={this.props.categories} />
+        onClick={this.selectDay}
+        key={day.date}
+        data={day}
+        categories={this.props.categories} />
     );
 
     return (

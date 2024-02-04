@@ -13,8 +13,8 @@ const GET_FREQUENCY_BY_MONTH_EXPIRATION = 1000 * 60 * 60 * 6; //6 hours in milis
 const GET_EVENTS_BY_DATE_EXPIRATION = 1000 * 60 * 60 * 6; //6 hours in miliseconds
 
 class Events {
-  static getEventFrequencyByDateForMonth(month, year) { 
-    const results = this.getCategoryFrequencyByMonth(month, year).then(eventsJSON => {
+  static getEventFrequencyByDateForMonth(month, year, filter_by_sent_date) { 
+    const results = this.getCategoryFrequencyByMonth(month, year,filter_by_sent_date).then(eventsJSON => {
       const rawCategoryFrequency = eventsJSON["frequency"]; //Holds dictionary mapping day of month to frequency of categories on that day
       const parsedCategoryFrequency = {};
 
@@ -38,13 +38,14 @@ class Events {
   //   return new Request("https://localhost:8432/events/all");
   // }
 
-  static getCategoryFrequencyByMonth(month, year) {
+  static getCategoryFrequencyByMonth(month, year, filter_by_sent_date) {
     const JSONrequest =  {
       month: month,
       year: year,
-      auth: LocalData.getUserAuthInfo()
+      auth: LocalData.getUserAuthInfo(),
+      filter_by_sent_date: filter_by_sent_date
     };
-    const res = axiosCached
+    const res = axios
       .post(process.env.REACT_APP_BACKEND_URL+"/get_event_category_frequency_for_month", 
             JSONrequest,
             {
@@ -63,13 +64,14 @@ class Events {
     return res;
   }
 
-  static getEventsByDate(formattedDate, includeDescription=true) {
+  static getEventsByDate(formattedDate, filter_by_sent_date, includeDescription=true ) {
     const JSONrequest =  {
       from_date: formattedDate,
       include_description: includeDescription,
-      auth: LocalData.getUserAuthInfo()
+      auth: LocalData.getUserAuthInfo(),
+      filter_by_sent_date: filter_by_sent_date
     };
-    const res = axiosCached
+    const res = axios
       .post(process.env.REACT_APP_BACKEND_URL+"/get_events_by_date", 
             JSONrequest,
             {

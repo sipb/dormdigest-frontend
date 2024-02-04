@@ -7,6 +7,7 @@ import HomeFeedEventView from "./HomeFeedEventView";
 import "./HomeFeedView.css";
 import LocalData from "../../../api/localdata";
 import { FilterEventsBySearchAndCategories } from "../../../utils/filters";
+import { Switch, FormControl, FormLabel } from "@chakra-ui/react";
 
 class HomeFeedView extends Component {
   constructor(props) {
@@ -23,9 +24,10 @@ class HomeFeedView extends Component {
     this.parseCategories = this.parseCategories.bind(this);
     const self = this;
 
-    Events.getEventsByDate(moment().format("YYYY-MM-DD")).then(response => {
+  
+    Events.getEventsByDate(moment().format("YYYY-MM-DD"),this.props.filter_by_sent_date).then(response => {
       self.saveEventData(response);
-    });
+    })
 
     // Categories.getCategoriesColorMapping().then(response => {
     //   let tempColors = {};
@@ -44,7 +46,7 @@ class HomeFeedView extends Component {
     const searchCount = this.state.searchCount + 1;
 
 
-    Events.getEventsByDate(nextProps.selectedDay.format("YYYY-MM-DD")).then(response => {
+    Events.getEventsByDate(nextProps.selectedDay.format("YYYY-MM-DD"), nextProps.filter_by_sent_date).then(response => {
       self.saveEventData(response);
     });
 
@@ -78,12 +80,17 @@ class HomeFeedView extends Component {
     }
     //Creating a new list matchingEvents that contains events that have categories matching with the categories the user has selected and words the user has searched
     const matchingEvents = FilterEventsBySearchAndCategories(eventData, search_target);
-
-    const events = matchingEvents;
+    if (this.props.filter_by_sent_date){
+      matchingEvents.forEach((event)=>{
+        event.start_time = event.date_created.substring(event.date_created.indexOf("T")+1)
+      })
+    }
+    const events = matchingEvents
 
     let times = [];
 
-    let data = events.sort((a, b) => {
+    let data = (events) ?
+      events.sort((a, b) => {
       let aTime = moment(a.start_time).valueOf();
       let bTime = moment(b.start_time).valueOf();
 
@@ -94,7 +101,7 @@ class HomeFeedView extends Component {
       }
 
       return 0;
-    });
+    }): []
 
 
     for (var i = 0; i < data.length; i++) {
@@ -168,9 +175,20 @@ class HomeFeedView extends Component {
     }
 
     return (
+      <>
+      <FormControl display="flex" justifyContent="flex-end" alignItems="center">
+        <FormLabel marginRight="1vw" htmlFor="email-alerts" mb="0">
+          Parsed Dates
+        </FormLabel>
+        <Switch  margin="0" colorScheme="brand" onChange={this.props.handleClick}/>
+        <FormLabel marginRight="0" marginLeft="1vw" htmlFor="email-alerts" mb="0">
+          Sent Dates
+        </FormLabel>
+      </FormControl>
       <div className="HomeFeedView">
         {elements}
       </div>
+      </>
     );
   }
 }
