@@ -7,7 +7,7 @@ import HomeFeedEventView from "./HomeFeedEventView";
 import "./HomeFeedView.css";
 import LocalData from "../../../api/localdata";
 import { FilterEventsBySearchAndCategories } from "../../../utils/filters";
-import { Switch, FormControl, FormLabel } from "@chakra-ui/react";
+import { Group, Switch, Text } from "@mantine/core";
 
 class HomeFeedView extends Component {
   constructor(props) {
@@ -176,15 +176,11 @@ class HomeFeedView extends Component {
 
     return (
       <>
-      <FormControl display="flex" justifyContent="flex-end" alignItems="center">
-        <FormLabel marginRight="1vw" htmlFor="email-alerts" mb="0">
-          Parsed Dates
-        </FormLabel>
-        <Switch  margin="0" colorScheme="brand" onChange={this.props.handleClick}/>
-        <FormLabel marginRight="0" marginLeft="1vw" htmlFor="email-alerts" mb="0">
-          Sent Dates
-        </FormLabel>
-      </FormControl>
+      <Group justify="flex-end">
+        <Text>Sent Dates</Text>
+        <Switch onChange={this.props.handleClick} defaultChecked color="#5F63D4"/>
+        <Text>Parsed Dates</Text>
+      </Group>
       <div className="HomeFeedView">
         {elements}
       </div>

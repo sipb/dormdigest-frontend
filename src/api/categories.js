@@ -2,15 +2,15 @@
 
 const CATEGORIES_COLORS = {
   'OTHER': "gray",
-  'FOOD': "#dc050c",
-  'CAREER': "#e8601c",
-  'FUNDRAISING': "#f1932d",
-  'APPLICATION': "#f6c141",
-  'PERFORMANCE': "#f7f056",
-  'BOBA': "#cae0ab",
-  'TALKS': "#90c987",
-  'SALE': "#4eb265",
-  'RSVP': "#7bafde"
+  'FOOD': "#d92120",
+  'CAREER': "#e7732f",
+  'FUNDRAISING': "#dbab3b",
+  'APPLICATION': "#b4bd4c",
+  'PERFORMANCE': "#83ba6d",
+  'BOBA': "#5ba7a6",
+  'TALKS': "#447cbf",
+  'SALE': "#413992",
+  'RSVP': "#781c81"
 }
 
 const DEFAULT_CATEGORY = 'OTHER'; //If an event doesn't have any tags, we will assign it this category
