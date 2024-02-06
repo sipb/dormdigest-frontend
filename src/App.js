@@ -11,25 +11,13 @@ import AdminView from './components/admin/AdminView';
 import ApproveView from './components/event/ApproveView';
 import { AuthProvider, RequireAuth } from "./auth/authProvider";
 import { OidcResponseHandler } from "./auth/auth";
-import { ChakraProvider } from '@chakra-ui/react';
-// 1. Import `extendTheme`
-import { extendTheme } from "@chakra-ui/react"
-
-// 2. Call `extendTheme` and pass your custom values
-const theme = extendTheme({
-  colors: {
-    brand: {
-      100: "#FFFFFF",
-      500: "#5F63D4",
-      900: "#474BCC"
-    },
-  },
-})
+import '@mantine/core/styles.css';
+import { MantineProvider } from "@mantine/core";
 
 const App = () => {
     return (
       <BrowserRouter>
-        <ChakraProvider theme={theme}>
+        <MantineProvider>
           <AuthProvider>
             <div>
               <Helmet>
@@ -56,7 +44,7 @@ const App = () => {
               </Routes>
             </div>
           </AuthProvider>
-        </ChakraProvider>
+        </MantineProvider>
       </BrowserRouter>
     );
   }
