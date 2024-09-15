@@ -31,6 +31,7 @@
   display: none;
 }
 
+
 .HomeView .betaform {
   position: fixed;
   top: 0;
@@ -103,4 +104,26 @@
 @keyframes hamburger-expand {
   from {width: 0px;}
   to {width: 300px;}
+}
+
+.features-list{
+  align-self: flex-start;
+  padding-left: 25px;
+}
+.message-contain{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 35px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.dormsoup-link{
+  margin-top: 10px;
+  align-self: flex-end;
+}
+
+.messages{
+  align-self: flex-start;
 }

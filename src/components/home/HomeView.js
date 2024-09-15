@@ -13,6 +13,8 @@ import HomeFeedView from "./feed/HomeFeedView";
 import HomeFeedEventModal from "./feed/HomeFeedEventModal";
 import LocalData from "../../api/localdata";
 import { AuthStatus } from "../../auth/authProvider";
+import { Modal } from "@mantine/core";
+import MergeMessage from "./MergeMessage";
 
 class HomeView extends Component {
   constructor(props) {
@@ -25,9 +27,9 @@ class HomeView extends Component {
       user: { settings: { filters: LocalData.getCategoryFilters() }}, //Categories that the user has selected
       categories: Categories.getCategoriesList(), //Should be a list of category names
       mobileMenu: false,
-      filter_by_sent_date: false // Whether to use sent date ( if false use parsed date)
+      filter_by_sent_date: false, // Whether to use sent date ( if false use parsed date)
+      dormsoupModalOpen: true,
     };
-
     // axios.get(process.env.REACT_APP_BACKEND_URL + "/users/current", {
     //   withCredentials: true
     // }).then(response => {
@@ -103,6 +105,20 @@ class HomeView extends Component {
   render() {
     return (
       <div className="HomeView">
+        <Modal 
+        size="lg" mih="70%" 
+        miw="fit-content"
+        centered 
+        opened={this.state.dormsoupModalOpen} 
+        withCloseButton 
+        onClose={()=>this.setState({dormsoupModalOpen: false})}
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 3,
+        }}
+        >
+        <MergeMessage/>
+        </Modal>
         <a href="https://forms.gle/74z5cuE6fvCe3TLZ9" target="_blank">
           <div className="betaform">suggest changes <p style={{textDecoration: "underline", display: "inline-block"}}>here</p></div>
         </a>
